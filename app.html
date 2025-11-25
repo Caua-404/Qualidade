@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Controle de Contaminações</title>
+
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
+  </head>
+
+  <body class="app-body">
+    <div class="app-shell">
+      <!-- HEADER -->
+      <header class="app-header">
+        <div class="app-header-left">
+          <img
+            src="assets/logo.svg"
+            alt="Frigorífico Rio Maria"
+            class="app-logo"
+          />
+
+          <div class="app-title-group">
+            <h1>Controle de Contaminações</h1>
+            <span class="app-subtitle">Qualidade • Traseiro e Dianteiro</span>
+          </div>
+        </div>
+
+        <div class="app-header-right">
+          <div class="user-info">
+            <span class="user-name" id="userName"></span>
+            <span class="user-role" id="userRole"></span>
+          </div>
+
+          <button
+            type="button"
+            class="user-badge"
+            id="logoutButton"
+            title="Sair"
+            aria-label="Sair"
+          >
+            <span class="helmet-icon"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- LAYOUT PRINCIPAL -->
+      <div class="app-main">
+        <!-- SIDEBAR -->
+        <nav class="app-sidebar">
+          <button class="nav-item active" data-view="view-registro">
+            Registro
+          </button>
+
+          <button
+            class="nav-item"
+            data-view="view-consulta"
+            data-perfil="SUPERVISOR"
+          >
+            Consulta
+          </button>
+
+          <button
+            class="nav-item"
+            data-view="view-liberacao"
+            data-perfil="SUPERVISOR"
+          >
+            Liberação
+          </button>
+        </nav>
+
+        <!-- ÁREA DE CONTEÚDO -->
+        <main class="app-content">
+          <section
+            id="view-registro"
+            class="view active"
+            aria-label="Registro de contaminações"
+          >
+            <div class="registro-header">
+              <div>
+                <h2>Registro de contaminações</h2>
+                <p class="registro-subtitle">
+                  Informe a data, o abate do dia e as contaminações por região.
+                </p>
+              </div>
+
+              <button
+                id="themeToggle"
+                class="theme-toggle"
+                type="button"
+                aria-label="Alternar tema"
+              >
+                🌙
+              </button>
+            </div>
+
+            <div class="registro-layout">
+              <!-- CARD: DATA + ABATE -->
+              <section class="registro-card registro-card-abate">
+                <h3>Abate do dia</h3>
+
+                <div class="form-group">
+                  <label for="dataAbate">Data do abate</label>
+                  <input type="date" id="dataAbate" required />
+                </div>
+
+                <div class="abate-row">
+                  <div class="form-group">
+                    <label for="totalAbate">Total de animais abatidos</label>
+                    <input
+                      type="number"
+                      id="totalAbate"
+                      min="0"
+                      placeholder="Ex: 420"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="totalCarcacas"
+                      >Total de carcaças (automático)</label
+                    >
+                    <input type="number" id="totalCarcacas" readonly />
+                  </div>
+                </div>
+              </section>
+
+              <!-- CARD: CONTAMINAÇÕES -->
+              <section class="registro-card registro-card-contaminacoes">
+                <header class="regiao-header">
+                  <div class="regiao-toggle" role="tablist">
+                    <button
+                      class="regiao-btn active"
+                      data-regiao="TRASEIRO"
+                      role="tab"
+                    >
+                      <span class="regiao-label">Traseiro</span>
+                      <span class="regiao-lock"></span>
+                    </button>
+
+                    <button
+                      class="regiao-btn"
+                      data-regiao="DIANTEIRO"
+                      role="tab"
+                    >
+                      <span class="regiao-label">Dianteiro</span>
+                      <span class="regiao-lock"></span>
+                    </button>
+                  </div>
+                </header>
+
+                <div class="contaminacao-wrapper">
+                  <p class="registro-subtitle">
+                    Informe as ocorrências de contaminação.
+                  </p>
+
+                  <div id="contaminacaoGrid" class="contaminacao-grid"></div>
+                </div>
+
+                <div class="registro-actions">
+                  <button type="button" class="btn-submit" id="btnEnviarRegiao">
+                    Enviar relatório da região
+                  </button>
+                  <p class="registro-msg" id="registroMsg"></p>
+                </div>
+              </section>
+            </div>
+          </section>
+
+<section id="view-consulta" class="view" aria-label="Consulta de registros">
+  <div class="consulta-header">
+    <div>
+      <h2>Consulta de registros</h2>
+      <p class="registro-subtitle">
+        Visualize os registros enviados para o Google Sheets.
+      </p>
+    </div>
+    <button type="button" class="btn-secondary" id="btnConsultaAtualizar">
+      Atualizar
+    </button>
+  </div>
+
+  <div class="consulta-table-wrapper">
+    <table class="consulta-table">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Região</th>
+          <th>Operador</th>
+          <th>Perfil</th>
+          <th>Total abate</th>
+          <th>Total carcaças</th>
+          <th>Fezes</th>
+          <th>Ingesta</th>
+          <th>Graxa</th>
+          <th>Medula</th>
+          <th>Pelo</th>
+          <th>Pó trilho</th>
+          <th>Linfonodos</th>
+          <th>Vacinas</th>
+          <th>Outros</th>
+        </tr>
+      </thead>
+      <tbody id="consultaTabelaBody">
+        <tr>
+          <td colspan="15" class="consulta-empty">
+            Nenhum registro carregado ainda.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+          <section
+            id="view-liberacao"
+            class="view"
+            aria-label="Liberação de edições"
+          >
+            <h2>Liberação de edições</h2>
+
+            <section class="registro-card">
+              <h3>Controle de liberação</h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="superRegiao">Região para liberar</label>
+                  <select id="superRegiao">
+                    <option value="TRASEIRO">Traseiro</option>
+                    <option value="DIANTEIRO">Dianteiro</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="superOperador">Operador autorizado</label>
+                  <select id="superOperador">
+                    <option value="">Selecione um operador</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="button" class="btn-secondary" id="btnLiberarEdicao">
+                Liberar edição
+              </button>
+
+              <p class="registro-hint">
+                Somente supervisores podem liberar regiões após o envio.
+              </p>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- JS -->
+<script src="js/app/apiConfig.js" defer></script>
+<script src="js/auth/login.js" defer></script>
+<script src="js/app/appShell.js" defer></script>
+<script src="js/app/registro.js" defer></script>
+<script src="js/app/consulta.js" defer></script>
+
+  </body>
+</html>

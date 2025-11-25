@@ -1,0 +1,797 @@
+/* =========================
+   TEMA (DARK / LIGHT)
+   ========================= */
+
+:root {
+  /* Dark (padrão) */
+  --bg-main: #020617;
+  --bg-elevated: #020617;
+  --bg-header: #020617;
+  --bg-sidebar: #020617;
+
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+
+  --border-subtle: rgba(148, 163, 184, 0.22);
+  --accent-red: #e60000;
+  --accent-red-soft: rgba(230, 0, 0, 0.16);
+
+  --radius-lg: 14px;
+  --radius-md: 10px;
+
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --input-bg: #020617;
+  --input-border: #334155;
+}
+
+/* Overrides para modo CLARO */
+html.light {
+  --bg-main: #f1f5f9;
+  --bg-elevated: #ffffff;
+  --bg-header: #ffffff;
+  --bg-sidebar: #f9fafb;
+
+  --text-main: #0f172a;
+  --text-muted: #050505;
+
+  --border-subtle: rgba(15, 23, 42, 0.12);
+  --shadow-soft: 0 10px 26px rgba(15, 23, 42, 0.12);
+
+  --input-bg: #ffffff;
+  --input-border: #cbd5e1;
+}
+
+/* =========================
+   RESETA BÁSICO
+   ========================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body.app-body {
+  font-family: var(--font-sans);
+  background: radial-gradient(circle at top, #111827 0, var(--bg-main) 55%, var(--bg-main) 100%);
+  color: var(--text-main);
+}
+
+/* =========================
+   SHELL GERAL
+   ========================= */
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.app-logo {
+  height: 40px;
+  width: auto;
+}
+
+.app-title-group h1 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.app-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.app-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.user-role {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* BOTÃO SAIR */
+
+.btn-ghost {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 0, 0, 0.45);
+  background: rgba(153, 27, 27, 0.16);
+  color: #fecaca;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.16s ease-out, border-color 0.16s ease-out, transform 0.12s;
+}
+
+.btn-ghost:hover {
+  background: rgba(185, 28, 28, 0.4);
+  border-color: rgba(248, 113, 113, 0.75);
+  transform: translateY(-1px);
+}
+
+.btn-ghost:active {
+  transform: translateY(0);
+}
+
+/* =========================
+   MAIN / SIDEBAR
+   ========================= */
+
+.app-main {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.app-sidebar {
+  width: 220px;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-subtle);
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.nav-item {
+  width: 100%;
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: background 0.16s ease-out, color 0.16s ease-out, transform 0.12s;
+}
+
+.nav-item:hover {
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text-main);
+}
+
+html.light .nav-item:hover {
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.nav-item.active {
+  background: var(--accent-red-soft);
+  color: #fee2e2;
+  transform: translateY(-1px);
+}
+
+/* =========================
+   CONTEÚDO / VIEW
+   ========================= */
+
+.app-content {
+  flex: 1;
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.view {
+  display: none;
+  background:
+    radial-gradient(circle at top left, rgba(148, 163, 184, 0.16), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.45), transparent 60%),
+    var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem 1.3rem;
+  animation: viewFade 0.28s ease-out;
+}
+
+.view.active {
+  display: block;
+}
+
+.view h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.08rem;
+}
+
+/* ANIMAÇÃO VIEW */
+
+@keyframes viewFade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   REGISTRO – LAYOUT GERAL
+   ========================= */
+
+.registro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.registro-subtitle {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+/* Botão de tema */
+.theme-toggle {
+  background: transparent;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.16s ease-out, transform 0.12s ease-out;
+}
+
+.theme-toggle:hover {
+  background: rgba(148, 163, 184, 0.16);
+  transform: translateY(-1px);
+}
+
+/* Cards empilhados (abate + contaminações) */
+
+.registro-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+/* Cards de registro */
+
+.registro-card {
+  background: var(--bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  padding: 1.15rem 1.1rem 1rem;
+}
+
+.registro-card h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+}
+
+/* Linha com totalAbate / totalCarcacas */
+
+.abate-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+/* Texto auxiliar */
+
+.registro-hint {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* =========================
+   CAMPOS / FORM-GROUP
+   ========================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.65rem;
+}
+
+.form-group label {
+  margin-bottom: 4px;
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+  background: var(--input-bg);
+  color: var(--text-main);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  padding: 0.55rem 0.6rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition:
+    border-color 0.16s ease-out,
+    box-shadow 0.16s ease-out,
+    transform 0.12s ease-out,
+    background 0.16s ease-out;
+}
+
+.form-group input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 1px rgba(230, 0, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   REGIÃO + CONTAMINAÇÕES
+   ========================= */
+
+.regiao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.regiao-toggle {
+  display: inline-flex;
+  background: rgba(15, 23, 42, 0.78);
+  border-radius: 999px;
+  padding: 0.15rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+html.light .regiao-toggle {
+  background: #e5e7eb;
+  border-color: rgba(148, 163, 184, 0.7);
+}
+
+.regiao-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: background 0.16s ease-out, color 0.16s ease-out, transform 0.12s ease-out;
+}
+
+.regiao-btn.active {
+  background: var(--accent-red-soft);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Cadeado da região (texto preenchido via JS: 🔒 ou vazio) */
+
+.regiao-lock {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Grid de contaminações */
+
+.contaminacao-wrapper {
+  margin-top: 0.25rem;
+}
+
+.contaminacao-grid {
+  margin-top: 0.65rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.75fr);
+  gap: 0.45rem 0.75rem;
+}
+
+.contaminacao-item-label {
+  font-size: 0.9rem;
+}
+
+.contaminacao-input {
+  width: 100%;
+  padding: 0.45rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 0.16s ease-out,
+    box-shadow 0.16s ease-out,
+    transform 0.12s ease-out,
+    background 0.16s ease-out;
+}
+
+.contaminacao-input:focus {
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.6);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   BOTÕES / AÇÕES
+   ========================= */
+
+.registro-actions {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.btn-submit {
+  background: var(--accent-red);
+  border: none;
+  color: #ffffff;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.16s ease-out, transform 0.12s ease-out, box-shadow 0.16s ease-out;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+}
+
+.btn-submit:hover {
+  background: #c40000;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.55);
+}
+
+.btn-submit:disabled {
+  opacity: 0.7;
+  cursor: default;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  margin-top: 0.4rem;
+  background: transparent;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  color: var(--text-main);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.16s ease-out, border-color 0.16s ease-out, transform 0.12s ease-out;
+}
+
+.btn-secondary:hover {
+  background: rgba(15, 23, 42, 0.8);
+  transform: translateY(-1px);
+}
+
+.registro-msg {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* =========================
+   PAINEL DO SUPERVISOR
+   ========================= */
+
+.supervisor-panel {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed rgba(148, 163, 184, 0.6);
+}
+
+.supervisor-panel h4 {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* =========================
+   RESPONSIVO
+   ========================= */
+
+@media (max-width: 900px) {
+  .app-main {
+    flex-direction: column;
+  }
+
+  .app-sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .nav-item {
+    justify-content: center;
+    flex: 1;
+  }
+
+  .app-content {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .app-header-right {
+    align-self: stretch;
+    justify-content: space-between;
+  }
+
+  .user-info {
+    align-items: flex-start;
+  }
+
+  .app-content {
+    padding: 0.8rem;
+  }
+
+  .view {
+    padding: 1.1rem 0.95rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .abate-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* =========================
+   AJUSTE INPUT NUMBER
+   ========================= */
+
+/* Remove setas dos inputs numéricos (Chrome, Edge, Safari, Opera) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Badge de usuário (capacete) */
+
+.user-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(148, 163, 184, 0.6);
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  transition:
+    background 0.16s ease-out,
+    border-color 0.16s ease-out,
+    transform 0.12s ease-out,
+    box-shadow 0.16s ease-out;
+  color: #e5e7eb; /* valor default, será sobrescrito por perfil */
+}
+
+.user-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
+}
+
+/* Ícone de capacete usando emoji */
+.helmet-icon::before {
+  content: "⛑";
+  font-size: 18px;
+}
+
+/* Supervisor = capacete amarelo */
+.user-badge.badge-supervisor {
+  border-color: #facc15;
+  color: #facc15;
+}
+
+/* Operador = capacete azul */
+.user-badge.badge-operador {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+/* Em modo claro, ajusta o contraste */
+html.light .user-badge {
+  background: #f9fafb;
+  border-color: rgba(148, 163, 184, 0.7);
+  color: #0f172a;
+}
+
+html.light .user-badge.badge-supervisor {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+html.light .user-badge.badge-operador {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+/* =========================
+   CONSULTA – TABELA
+   ========================= */
+
+.consulta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.consulta-table-wrapper {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-soft);
+  padding: 0.75rem 0.9rem 0.9rem;
+  overflow-x: auto;
+}
+
+.consulta-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 980px;
+  font-size: 0.84rem;
+}
+
+.consulta-table thead th {
+  text-align: left;
+  padding: 0.45rem 0.55rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.consulta-table tbody td {
+  padding: 0.4rem 0.55rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  white-space: nowrap;
+}
+
+.consulta-table tbody tr:nth-child(odd) {
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.consulta-table tbody tr:hover {
+  background: rgba(248, 250, 252, 0.04);
+}
+
+html.light .consulta-table tbody tr:nth-child(odd) {
+  background: #f9fafb;
+}
+
+html.light .consulta-table tbody tr:hover {
+  background: #e5e7eb;
+}
+
+/* alinhamento numérico */
+.consulta-table td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* estados de carregamento / vazio */
+.consulta-empty,
+.consulta-loading {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* Pílulas de região */
+
+.regiao-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.regiao-traseiro {
+  background: rgba(220, 38, 38, 0.16);
+  color: #fecaca;
+  border: 1px solid rgba(248, 113, 113, 0.7);
+}
+
+.regiao-dianteiro {
+  background: rgba(37, 99, 235, 0.18);
+  color: #bfdbfe;
+  border: 1px solid rgba(96, 165, 250, 0.7);
+}
+
+.regiao-desconhecida {
+  background: rgba(148, 163, 184, 0.18);
+  color: var(--text-muted);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+}
+
+html.light .regiao-traseiro {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+html.light .regiao-dianteiro {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+html.light .regiao-desconhecida {
+  background: #e5e7eb;
+  color: #4b5563;
+}

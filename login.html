@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login — Controle de Contaminações</title>
+
+  <link rel="stylesheet" href="css/login.css" />
+  <link rel="icon" href="assets/logo.svg">
+</head>
+<body class="login-body">
+  <main class="login-container">
+    <section class="login-card" aria-label="Tela de login do sistema de controle de contaminações">
+      <header class="login-header">
+        <img
+          src="assets/logo.svg"
+          alt="Frigorífico Rio Maria"
+          class="login-logo"
+        />
+      </header>
+
+      <form id="loginForm" class="login-form" novalidate>
+        <div class="field">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required
+            placeholder="Usuário"
+          />
+        </div>
+
+        <div class="field">
+          <!-- Campo de senha é APENAS visual: não será enviado ao servidor. -->
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="off"
+            placeholder="Senha"
+            required
+          />
+        </div>
+
+        <div class="field field-inline">
+          <label class="checkbox-label">
+            <input type="checkbox" id="keepConnected" />
+            <span>Manter conectado</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-primary" id="loginButton">
+          Entrar
+        </button>
+
+        <p class="login-error" id="loginError" hidden>
+          Erro ao fazer login. Verifique os dados e tente novamente.
+        </p>
+      </form>
+    </section>
+
+    <footer class="login-footer">
+      <p>Todos os Direitos Reservados à</p>
+      <p>Frigorífico Rio Maria - Canaã dos Carajás - Versão 1.0</p>
+    </footer>
+  </main>
+
+  <script src="js/core/apiClient.js" defer></script>
+  <script src="js/auth/login.js" defer></script>
+</body>
+</html>
